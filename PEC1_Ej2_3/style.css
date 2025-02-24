@@ -16,11 +16,13 @@ body {
     margin: 0;
 }
 
-.movie-container, .currency-container {
+.movie-container,
+.currency-container {
     margin: 20px 0;
 }
 
-.movie-container select, .currency-container select {
+.movie-container select,
+.currency-container select {
     background-color: #fff;
     border: 0;
     border-radius: 5px;
