@@ -1,5 +1,6 @@
 :root {
     --primary-color: #5fbaa7;
+    --error-color: #e74c3c;
 }
 
 * {
@@ -84,6 +85,35 @@ input:focus,
 button:focus {
     outline: 0;
 }
+
+.loadingErrorMessage {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.loadingErrorMessage small {
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility;
+}
+
+.loadingErrorMessage.loading small {
+    color: var(--primary-color);
+    font-size: 14px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.loadingErrorMessage.error small {
+    color: var(--error-color);
+    font-size: 12px;
+    visibility: visible;
+    opacity: 1;
+}
+
 
 @media(max-width: 600px) {
     .currency input {
