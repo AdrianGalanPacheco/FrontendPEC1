@@ -19,14 +19,9 @@ function showSuccess(input) {
     formControl.className = 'form-control success';
 }
 
-// Check email is valid
-function checkEmail(input) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(input.value.trim())) {
-        showSuccess(input);
-    } else {
-        showError(input, 'Email is not valid');
-    }
+// Get FieldName
+function getFieldName(input) {
+    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
 
 // Check required fields
@@ -51,13 +46,6 @@ function checkLength(input, min, max) {
     }
 }
 
-// Check passwords match
-function checkPasswordsMatch(input1, input2) {
-    if(input1.value !== input2.value) {
-        showError(input2, 'Passwords do not match');
-    }
-}
-
 // Check age
 function checkAge(input, min, max) {
     if((input.value < min)) {
@@ -67,9 +55,35 @@ function checkAge(input, min, max) {
     }
 }
 
-// Get FieldName
-function getFieldName(input) {
-    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+// Check email is valid
+function checkEmail(input) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   
+    if(re.test(input.value.trim())) {
+        showSuccess(input);
+    } else {
+        showError(input, 'Email is not valid');
+    }
+}
+
+// Check password is valid
+function checkPassword(input, min, max) {
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\`~!@#\$%\^&\*\(\)_\+\-={}\[\]\\|:;"'<>,\.\?/]).*$/;
+    
+    if (input.value.length < min || input.value.length > max) {
+        showError(input, `Password must be between ${min} and ${max} characters`);
+    } else if(re.test(input.value)) {
+        showSuccess(input);
+    } else {
+        showError(input, 'Password is not valid');
+    }
+}
+
+// Check passwords match
+function checkPasswordsMatch(input1, input2) {
+    if(input1.value !== input2.value) {
+        showError(input2, 'Passwords do not match');
+    }
 }
 
 // Event listeners
@@ -78,8 +92,8 @@ form.addEventListener('submit', function(e) {
     
     checkRequired([username, age, email, password, password2]);
     checkLength(username, 3, 15);
-    checkAge(age, 0, 1000);
-    checkLength(password, 6, 25);
+    checkAge(age, 0, 1000);    
     checkEmail(email);
+    checkPassword(password, 8, 25);
     checkPasswordsMatch(password, password2);
 });
