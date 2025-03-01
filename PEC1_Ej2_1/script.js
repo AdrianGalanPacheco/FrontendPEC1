@@ -83,7 +83,7 @@ function checkPassword(input, min, max) {
   } else if (re.test(input.value)) {
     showSuccess(input);
   } else {
-    showError(input, "Password is not valid");
+    showError(input, "It must contain uppercase letters, symbols, lowercase letters, and digits");
   }
 }
 
